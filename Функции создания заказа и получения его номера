@@ -1,0 +1,28 @@
+# Леханова Татьяна, 43-когорта. Финальный проект, инженер по тестированию +.
+
+# Импорт библиотеки requests для выполнения HTTP-запросов
+import requests
+
+# Импорт настроек из модуля configuration, который содержит параметры конфигурации и URL сервиса
+import configuration
+
+# Импорт данных запроса из модуля data, в котором определены заголовки и тело запроса 
+import data
+
+# Функция для создания нового заказа (POST)
+def post_new_order():
+    return requests.post(
+        url=configuration.URL_SERVICE + configuration.CREATE_ORDER_PATH,
+        json=data.order_body,
+        headers=data.headers
+    )
+
+# Функция для получения данных о заказе по его трек-номеру (GET)
+def get_order_by_track(track_number):
+    # Номер трека передается как Query-параметр (?t=номер_трека)
+    payload = {"t": track_number}
+    return requests.get(
+        url=configuration.URL_SERVICE + configuration.GET_ORDER_TRACK_PATH,
+        params=payload,
+        headers=data.headers
+    )
